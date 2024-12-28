@@ -145,6 +145,11 @@ jobs:
           enableCrossOsArchive: true
           fail-on-cache-miss: true
 
+      - name: Remove unused artifact ❌
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: ${{ needs.build.outputs.zipname }}-${{ needs.build.outputs.built }}
+
       - name: Merge language and density resources 🧙🏻‍♂️
         run: |
           if ("${{ inputs.arch }}" -eq "x64") {
