@@ -171,6 +171,9 @@ jobs:
           7z a -t7z -mx=6 -m0=LZMA2 -ms=on -mmt=8 -sdel -- "${{ needs.build.outputs.artifact }}.7z" "${{ needs.build.outputs.artifact }}\*"
           ($(Get-FileHash -Path "${{ needs.build.outputs.artifact }}.7z" -Algorithm SHA256).Hash.ToLower().ToString() + "  " + "${{ needs.build.outputs.artifact }}.7z") | Out-File -FilePath sha256-checksum.txt -Encoding UTF8
 
+      - name: File Checksum ✔️
+        id: run
+        run: ("hash=" + $(Get-FileHash -Path "${{ needs.build.outputs.artifact }}.7z" -Algorithm SHA256).Hash.ToLower().ToString()) | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding UTF8 -Append
 
       - name: Update build to release 🤌
         uses: softprops/action-gh-release@v2
