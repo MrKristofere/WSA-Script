@@ -44,11 +44,11 @@ class Prop(OrderedDict):
 new_props = {
     ("product", "brand"): "google",
     ("product", "manufacturer"): "Google",
-    ("build", "product"): "raven",
-    ("product", "name"): "raven",
-    ("product", "device"): "raven",
-    ("product", "model"): "Pixel 6 Pro",
-    ("build", "flavor"): "raven-user"
+    ("build", "product"): "cheetah",
+    ("product", "name"): "cheetah",
+    ("product", "device"): "cheetah",
+    ("product", "model"): "Pixel 7 Pro",
+    ("build", "flavor"): "cheetah-user"
 }
 
 
