@@ -172,6 +172,7 @@ jobs:
           ($(Get-FileHash -Path "${{ needs.build.outputs.artifact }}.7z" -Algorithm SHA256).Hash.ToLower().ToString() + "  " + "${{ needs.build.outputs.artifact }}.7z") | Out-File -FilePath sha256-checksum.txt -Encoding UTF8
 
       - name: File Checksum ✔️
+        working-directory: output
         id: run
         run: ("hash=" + $(Get-FileHash -Path "${{ needs.build.outputs.artifact }}.7z" -Algorithm SHA256).Hash.ToLower().ToString()) | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding UTF8 -Append
 
