@@ -115,8 +115,18 @@ jobs:
           key: ${{ steps.wsa.outputs.artifact }}-${{ steps.wsa.outputs.built }}
           enableCrossOsArchive: true
 
+      - name: Prepare release tag 🏷️
+        id: date
+        run: |
+           if [[ "${{ inputs.release_type }}" == "WIF" ]]; then
+              echo "date=WSA-Insider-Version" >> $GITHUB_OUTPUT
+           else
+              echo "date=$(date +'v%Y-%m-%d')" >> $GITHUB_OUTPUT
+           fi
+
     outputs:
       artifact: ${{ steps.wsa.outputs.artifact }}
+      date: ${{ steps.date.outputs.date }}
       built: ${{ steps.wsa.outputs.built }}
 
   make-pri:
@@ -170,7 +180,7 @@ jobs:
       - name: Update build to release 🤌
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ needs.build.outputs.zipname }}.7z
+          files: ${{ needs.build.outputs.artifact }}.7z
           fail_on_unmatched_files: true
           append_body: true
           tag_name: ${{ needs.build.outputs.date }}
