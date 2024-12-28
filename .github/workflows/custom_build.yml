@@ -176,6 +176,7 @@ jobs:
         with:
           name: ${{ needs.build.outputs.artifact }}-compressed
           path: output
+        continue-on-error: true
 
       - name: Update build to release 🤌
         uses: softprops/action-gh-release@v2
@@ -184,3 +185,4 @@ jobs:
           fail_on_unmatched_files: true
           append_body: true
           tag_name: ${{ needs.build.outputs.date }}
+          body: ${{ steps.run.outputs.hash }}  ${{ needs.build.outputs.zipname }}.7z
