@@ -54,7 +54,6 @@ jobs:
   build:
     name: Build WSA
     runs-on: ubuntu-latest
-    if: github.event.repository.fork == false
     steps:
       - name: Checkout ♻️
         uses: actions/checkout@v4
@@ -163,3 +162,11 @@ jobs:
         with:
           name: ${{ needs.build.outputs.artifact }}-compressed
           path: output
+
+      - name: Update build to release 🤌
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ needs.build.outputs.zipname }}.7z
+          fail_on_unmatched_files: true
+          append_body: true
+          tag_name: ${{ needs.build.outputs.date }}
